@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Saúde Inabalável - O Fim da Confusão Alimentar</title>
+    <link id="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Estilos customizados e configuração do Tailwind -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background-color: #F59E0B; /* Amarelo/Laranja Vibrante */
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
+        }
+        .pastor-bg {
+            background-color: #f8f9fa;
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+        }
+        .cta-button:active {
+            animation: shake 0.2s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateY(-3px) translateX(0); }
+            25% { transform: translateY(-3px) translateX(3px); }
+            75% { transform: translateY(-3px) translateX(-3px); }
+        }
+        .highlight-plan {
+            border: 3px solid #F59E0B;
+            transform: scale(1.05);
+        }
+        .strikethrough {
+            text-decoration: line-through;
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #visitor-counter {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            z-index: 50;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease-out;
+            transform: translateX(-200%); /* Começa fora da tela */
+        }
+        #visitor-counter.visible {
+            transform: translateX(0);
+        }
+        #visitor-counter .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #34D399; /* Verde */
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+        }
+        #exit-intent-popup { transition: opacity 0.3s ease-in-out; }
+        .popup-content { animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .media-logo {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            max-height: 4rem; /* Tamanho padrão (metade) */
+            max-width: 12rem;
+            width: auto;      
+            height: auto;     
+        }
+        #nyt-logo {
+            max-height: 8rem; /* Dobro do tamanho */
+            max-width: 24rem;
+        }
+        .media-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        /* Estilos para o FAQ */
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .faq-question {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Barra de Progresso -->
+    <div id="progress-bar"></div>
+
+    <!-- Contador de Visitantes -->
+    <div id="visitor-counter">
+        <div class="live-dot"></div>
+        <div><span id="visitor-count" class="font-bold">147</span> pessoas acessando nesse exato momento.</div>
+    </div>
+
+    <!-- 1. HEADLINE E SUBHEADLINE -->
+    <header class="bg-gray-900 text-white pt-20 pb-16">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm md:text-base text-gray-400 mb-4 reveal-on-scroll" data-animate>
+                 <span id="greeting">Boa tarde</span> em <span class="dynamic-city">Sertãozinho</span>! <span class="dynamic-weather">28°C</span> agora.
+            </p>
+            <h1 class="text-3xl md:text-5xl font-black leading-tight reveal-on-scroll" data-animate>
+                Sua Comida Favorita Está Te Inflamando ou Te Curando?
+            </h1>
+            <p class="text-lg md:text-2xl font-light text-gray-300 max-w-4xl mx-auto mt-6 reveal-on-scroll" data-animate>
+                A resposta está no seu DNA. Descubra como o revolucionário 
+                <span class="inline-flex items-center gap-2 font-bold text-white">
+                    <svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.063 2.51L12.633 4.88C12.448 5.22 12.028 5.38 11.668 5.25L9.08804 4.33C8.45804 4.11 7.88804 4.68 8.10804 5.31L8.99804 7.82C9.11804 8.18 8.96804 8.58 8.63804 8.79L6.44804 10.3C5.90804 10.68 5.90804 11.52 6.44804 11.9L8.63804 13.41C8.96804 13.62 9.12804 14.02 8.99804 14.38L8.10804 16.89C7.88804 17.52 8.45804 18.09 9.08804 17.87L11.668 16.95C12.028 16.82 12.448 16.98 12.633 17.32L14.063 19.69C14.443 20.23 15.283 20.23 15.663 19.69L17.093 17.32C17.278 16.98 17.698 16.82 18.058 16.95L20.638 17.87C21.268 18.09 21.838 17.52 21.618 16.89L20.728 14.38C20.608 14.02 20.758 13.62 21.088 13.41L23.278 11.9C23.818 11.52 23.818 10.68 23.278 10.3L21.088 8.79C20.758 8.58 20.608 8.18 20.728 7.82L21.618 5.31C21.838 4.68 21.268 4.11 20.638 4.33L18.058 5.25C17.698 5.38 17.278 5.22 17.093 4.88L15.663 2.51C15.283 1.97 14.443 1.97 14.063 2.51Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16.012C4.34652 15.0623 4.98043 14.2127 5.8205 13.5644C6.66057 12.9161 7.67269 12.4994 8.73496 12.3623C9.79724 12.2252 10.8762 12.3734 11.8546 12.7916C12.833 13.2098 13.6749 13.8837 14.28 14.74" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 22.01L11.01 21.9989" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12.01L3.01 11.9989" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 4.01L12.01 3.99887" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Algoritmo do DNA Metabólico®
+                </span>
+                está permitindo que pessoas comuns ativem o "interruptor" genético da queima de gordura e comam o que amam, sem culpa ou restrições.
+            </p>
+        </div>
+    </header>
+
+    <!-- NOVO BLOCO: AGITAÇÃO DA DOR -->
+    <section class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal-on-scroll" data-animate>Se isto soa familiar, você não está sozinho...</h2>
+            <div class="space-y-8 text-lg leading-relaxed">
+                <div class="flex items-start gap-4 reveal-on-scroll" data-animate>
+                    <svg class="w-8 h-8 text-red-500 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11.95 8L12.05 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <p>O pânico silencioso em jantares de família, o medo da "contaminação cruzada", o receio de estragar a noite de todos por causa de uma crise... Você vive em estado de alerta constante.</p>
+                </div>
+                <div class="flex items-start gap-4 reveal-on-scroll" data-animate>
+                    <svg class="w-8 h-8 text-red-500 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11.95 8L12.05 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <p>A exaustão de ser o "chato do rolê". De ter que levar a sua própria marmita, de recusar o bolo de aniversário feito com carinho, de sentir os olhares de pena ou impaciência... O sentimento de ser um fardo.</p>
+                </div>
+                <div class="flex items-start gap-4 reveal-on-scroll" data-animate>
+                    <svg class="w-8 h-8 text-red-500 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11.95 8L12.05 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <p>A decepção de receitas "saudáveis" com gosto de papelão. O dinheiro jogado fora em ingredientes caros para um resultado sem graça, que só reforça a ideia de que comer bem é uma punição.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVO BLOCO: O INIMIGO COMUM -->
+    <section class="py-16 bg-red-800 text-white">
+        <div class="container mx-auto px-6 text-center max-w-3xl reveal-on-scroll" data-animate>
+            <h2 class="text-2xl md:text-3xl font-bold">O VERDADEIRO INIMIGO NÃO ESTÁ NO SEU PRATO.</h2>
+            <p class="text-lg mt-4">Você foi levado a acreditar que a culpa é sua. Da sua falta de força de vontade, do seu metabolismo. ISSO É UMA MENTIRA.</p>
+            <p class="text-lg mt-4">O verdadeiro inimigo é a <strong class="text-yellow-300 text-xl">"Indústria da Comida Viciante e Enganosa"</strong>. Um sistema projetado para te manter doente e dependente. Eles lucram com a sua dor.</p>
+            <p class="mt-6 font-bold text-xl">Hoje, você para de ser a vítima e começa a ser o herói da sua própria saúde. Nós vamos dar-lhe as armas para lutar de volta.</p>
+        </div>
+    </section>
+    
+    <!-- BLOCO DA PROVA CIENTÍFICA (ESTRATÉGICO) -->
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="bg-white p-6 md:p-8 border border-gray-200 rounded-lg shadow-lg reveal-on-scroll" data-animate>
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h3 class="font-bold text-gray-800 text-lg md:text-xl">Notícias Científicas</h3>
+                    <span class="text-sm text-gray-500 italic">de organizações de pesquisa</span>
+                </div>
+                <div class="mt-4">
+                    <h4 class="text-xl md:text-2xl font-bold text-blue-800 leading-tight">Algoritmo Metabólico Desbloqueia Perda de Peso Sem Restrição Calórica</h4>
+                    <div class="text-sm text-gray-600 mt-4 space-y-2">
+                        <p><em class="font-semibold text-gray-800">Data:</em> 26 de Junho de 2025</p>
+                        <p><em class="font-semibold text-gray-800">Fonte:</em> Instituto de Nutrigenômica Aplicada</p>
+                    </div>
+                    <div class="mt-4 text-gray-700 leading-relaxed">
+                        <p><em class="font-semibold text-gray-800">Resumo:</em> Um estudo inovador confirma que a perda de peso saudável é acelerada com dietas personalizadas. Participantes que seguiram um plano <span class="font-bold">zero açúcar e zero glúten</span>, guiado pelo <span class="font-bold">Algoritmo do DNA Metabólico®</span>, não apenas perderam peso, mas relataram drástica redução na compulsão e aumento de energia. Pesquisadores concluíram que a personalização, em vez da restrição, é a chave para combater a inflamação e destravar o potencial do corpo.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t flex items-center gap-4 text-gray-600">
+                        <span class="text-lg italic">Compart...</span>
+                        <a href="#" class="hover:opacity-75"><svg class="w-6 h-6" style="color: #1877F2" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0h-21.35C.59 0 0 .59 0 1.325v21.35C0 23.41.59 24 1.325 24H12.82v-9.29h-3.09V11.07h3.09V8.4c0-3.07 1.875-4.75 4.625-4.75.875 0 1.625.06 1.844.09v3.25h-1.922c-1.484 0-1.773.7-1.773 1.73v2.3h3.594l-.469 3.64H17.4V24h5.275C23.41 24 24 23.41 24 22.675v-21.35C24 .59 23.41 0 22.675 0z"/></svg></a>
+                        <a href="#" class="hover:opacity-75"><svg class="w-6 h-6" style="color: #1DA1F2" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.223.085c.645 1.956 2.52 3.375 4.738 3.42a9.84 9.84 0 01-6.115 2.107c-.398 0-.79-.023-1.175-.068a13.92 13.92 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+                        <a href="#" class="hover:opacity-75"><svg class="w-6 h-6" style="color: #0077B5" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg></a>
+                        <a href="#" class="hover:opacity-75"><svg class="w-6 h-6" style="color: #6b7280" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 reveal-on-scroll" data-animate>
+                <div class="flex-shrink-0 text-center">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop" class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover mx-auto border-4 border-white shadow-lg" alt="Foto de um médico de 55 anos, Dr. Alex Borges">
+                    <h3 class="text-xl font-bold mt-4">Dr. Alex Borges</h3>
+                    <p class="text-sm text-gray-600">Nutricionista e Pesquisador</p>
+                </div>
+                <div class="text-lg leading-relaxed">
+                    <p>"Durante anos, acreditei que disciplina era a resposta. Tentei todas as dietas, li centenas de artigos e vi incontáveis pacientes frustrados, presos no mesmo ciclo vicioso que eu mesmo já estive."</p>
+                    <p class="mt-4">"Eu me sentia um impostor. Até que percebi: o erro não estava neles. Não estava em mim. **Estava no sistema que ignora a individualidade biológica de cada pessoa.**"</p>
+                    <p class="mt-4 font-bold text-gray-900">"Foi então que, após 7 anos de estudo em nutrigenômica e analisando milhares de casos reais, nasceu o Algoritmo do DNA Metabólico®. Uma chave. A sua chave."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold reveal-on-scroll" data-animate>Como o Algoritmo do DNA Metabólico® Funciona?</h2>
+                <p class="text-lg mt-4 text-gray-300 reveal-on-scroll" data-animate>Nós transformamos a ciência complexa em 4 passos simples para o seu sucesso.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                <div class="bg-gray-800 p-6 rounded-lg text-center reveal-on-scroll" data-animate>
+                    <div class="flex justify-center items-center h-16 w-16 rounded-full bg-yellow-400 text-gray-900 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold">1. Análise Metabólica</h3>
+                    <p class="mt-2 text-gray-400">Avaliamos seus padrões hormonais e respostas emocionais à comida através de um questionário inteligente.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg text-center reveal-on-scroll" data-animate style="transition-delay: 150ms;">
+                    <div class="flex justify-center items-center h-16 w-16 rounded-full bg-yellow-400 text-gray-900 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold">2. Mapeamento Comportamental</h3>
+                    <p class="mt-2 text-gray-400">Identificamos os gatilhos inconscientes (estresse, tédio, TPM) que sabotam sua alimentação.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg text-center reveal-on-scroll" data-animate style="transition-delay: 300ms;">
+                    <div class="flex justify-center items-center h-16 w-16 rounded-full bg-yellow-400 text-gray-900 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-9-5.747h18" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold">3. Estrutura Flexível</h3>
+                    <p class="mt-2 text-gray-400">Entregamos 500 Receitas Reais testadas e validadas, que focam em resultados e prazer.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg text-center reveal-on-scroll" data-animate style="transition-delay: 450ms;">
+                    <div class="flex justify-center items-center h-16 w-16 rounded-full bg-yellow-400 text-gray-900 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold">4. Adaptação Contínua</h3>
+                    <p class="mt-2 text-gray-400">O App aprende com você. Quanto mais você usa, mais o plano se torna seu, de forma inteligente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 reveal-on-scroll" data-animate>A Diferença é Clara. A Escolha é Óbvia.</h2>
+            <div class="max-w-5xl mx-auto overflow-x-auto reveal-on-scroll" data-animate>
+                <table class="w-full text-center bg-white shadow-2xl rounded-lg min-w-[600px]">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="p-4 font-bold text-left">Característica</th>
+                            <th class="p-4 font-bold">Nós (Algoritmo)</th>
+                            <th class="p-4 font-bold">Nutricionista</th>
+                            <th class="p-4 font-bold">Dieta da Moda</th>
+                            <th class="p-4 font-bold">App Genérico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-4 font-semibold text-left">Baseado em genética + hormônios</td>
+                            <td><span class="text-green-500 text-3xl font-bold">✔</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                        </tr>
+                        <tr class="bg-gray-50 border-b">
+                            <td class="p-4 font-semibold text-left">500 Receitas Reais testadas e validadas</td>
+                            <td><span class="text-green-500 text-3xl font-bold">✔</span></td>
+                            <td><span class="text-gray-400 text-xl">Papel</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-4 font-semibold text-left">Recalibração automática por App</td>
+                            <td><span class="text-green-500 text-3xl font-bold">✔</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-4 font-semibold text-left">Foco em prazer e constância</td>
+                            <td><span class="text-green-500 text-3xl font-bold">✔</span></td>
+                            <td><span class="text-gray-400 text-xl">Às vezes</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                            <td><span class="text-red-500 text-3xl font-bold">✖</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-16 md:pt-24 pb-4">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 reveal-on-scroll" data-animate>Não acredite em nós. Acredite neles.</h2>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg reveal-on-scroll" data-animate>
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=688&auto=format&fit=crop" class="w-24 h-24 rounded-full mx-auto -mt-16 border-4 border-white object-cover" alt="Foto de Letícia Moreira, 39 anos">
+                    <p class="text-center mt-4 text-gray-600">"Eu não achava que era possível emagrecer sem sofrer. Em 4 semanas, perdi 6kg, parei de ter compulsão, e o melhor: voltei a ter prazer em comer com minha família."</p>
+                    <p class="text-center font-bold mt-4">Letícia Moreira, 39 anos</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg reveal-on-scroll" data-animate style="transition-delay: 200ms;">
+                    <img src="https://plus.unsplash.com/premium_photo-1679089777436-72bfcb7a55b1?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-24 h-24 rounded-full mx-auto -mt-16 border-4 border-white object-cover" alt="Foto de Ricardo Almeida, 52 anos">
+                    <p class="text-center mt-4 text-gray-600">"O médico disse que eu precisava mudar ou teria problemas sérios. Esse aplicativo que meu filho me apresentou não só me ajudou a controlar o açúcar, como me deu mais energia do que eu tinha aos 30."</p>
+                    <p class="text-center font-bold mt-4">Ricardo Almeida, 52 anos</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg reveal-on-scroll" data-animate style="transition-delay: 400ms;">
+                    <img src="https://images.unsplash.com/photo-1715443972912-cc425dbcf73e?q=80&w=2800&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-24 h-24 rounded-full mx-auto -mt-16 border-4 border-white object-cover" alt="Foto de Rosa Maria, 58 anos">
+                    <p class="text-center mt-4 text-gray-600">"Eu achava que comida saudável era sem graça. Descobri aqui receitas deliciosas, sem açúcar e sem glúten, que toda a minha família ama. Voltei a ter prazer em cozinhar!"</p>
+                    <p class="text-center font-bold mt-4">Rosa Maria, 58 anos</p>
+                </div>
+            </div>
+            <div class="text-center mt-12 reveal-on-scroll" data-animate>
+                <p class="text-gray-500 font-semibold mb-4 uppercase tracking-wider">Como visto em:</p>
+                <div class="flex justify-center items-center gap-x-8 gap-y-4 md:gap-x-12 flex-wrap">
+                    <img src="https://logowik.com/content/uploads/images/422_cnn_logo.jpg" alt="Logo CNN" class="media-logo" onerror="this.onerror=null;this.src='https://placehold.co/120x40/CCCCCC/FFFFFF?text=CNN';">
+                    <img src="https://logowik.com/content/uploads/images/la-opinion-colombia1922.logowik.com.webp" alt="Logo Veja" class="media-logo" onerror="this.onerror=null;this.src='https://placehold.co/240x80/CCCCCC/FFFFFF?text=Veja';">
+                    <img src="https://logodownload.org/wp-content/uploads/2019/05/the-new-york-times-logo-0.png" alt="The New York Times Logo" id="nyt-logo" class="media-logo" onerror="this.onerror=null;this.src='https://placehold.co/240x80/CCCCCC/FFFFFF?text=The+New+York+Times';">
+                    <img src="https://logowik.com/content/uploads/images/el-mundo6102.logowik.com.webp" alt="Logo UOL" class="media-logo" onerror="this.onerror=null;this.src='https://placehold.co/240x80/CCCCCC/FFFFFF?text=UOL';">
+                    <img src="https://logowik.com/content/uploads/images/cnn-en-espanol-with-text7362.logowik.com.webp" alt="Logo CNN Español" class="media-logo" onerror="this.onerror=null;this.src='https://placehold.co/2400x80/CCCCCC/FFFFFF?text=CNN+Espa%C3%B1ol';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center max-w-3xl mx-auto reveal-on-scroll" data-animate>
+                 <h2 class="text-3xl md:text-4xl font-bold">O seu novo centro de comando da saúde.</h2>
+                 <p class="text-lg mt-4 text-gray-700">Você terá acesso imediato ao App exclusivo, com tudo que precisa para transformar sua vida, na palma da sua mão.</p>
+            </div>
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 items-center reveal-on-scroll" data-animate>
+                <img src="https://placehold.co/300x600/ffffff/333333?text=Tela+de+Receitas" alt="Tela de Receitas do App" class="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300 -rotate-3">
+                <img src="https://placehold.co/300x600/ffffff/333333?text=Favoritos" alt="Tela de Favoritos do App" class="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300 rotate-2 mt-8 md:mt-0">
+                <img src="https://placehold.co/300x600/ffffff/333333?text=Modo+Preparo" alt="Tela de Modo Preparo do App" class="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300 -rotate-2">
+                <img src="https://placehold.co/300x600/ffffff/333333?text=Personalização" alt="Tela de Personalização do App" class="rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-300 rotate-3 mt-8 md:mt-0">
+            </div>
+        </div>
+    </section>
+    
+    <section id="bonus-trigger" class="py-16 md:py-24">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="text-center mb-12 reveal-on-scroll" data-animate>
+                <h2 class="text-3xl md:text-4xl font-bold">E para tornar a sua decisão <span class="text-red-600">impossível</span> de ser adiada...</h2>
+                <p class="text-lg mt-4">Ao garantir seu acesso hoje, você recebe este arsenal de transformação, <span class="font-bold uppercase">totalmente de graça</span>.</p>
+            </div>
+            <div class="space-y-8">
+                <div class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center gap-6 reveal-on-scroll" data-animate>
+                    <img src="https://placehold.co/150x150/FBBF24/333?text=BÔNUS+1" alt="Bônus 1 Ícone" class="w-32 h-32 rounded-lg object-cover flex-shrink-0">
+                    <div>
+                        <h3 class="text-xl font-bold">BÔNUS #1: Kit Essencial do Chefe de Cozinha Saudável</h3>
+                        <p class="mt-2 text-gray-600">Transforme sua cozinha. Inclui: Curso 'Dominar o Preparo em Lotes', Guias 'Desperdício Zero' e Receitas 'Gourmet em 5 Minutos'.</p>
+                        <p class="mt-2 font-bold">Valor: <span class="strikethrough">$195</span></p>
+                    </div>
+                </div>
+                 <div class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center gap-6 reveal-on-scroll" data-animate>
+                    <img src="https://placehold.co/150x150/A78BFA/333?text=BÔNUS+2" alt="Bônus 2 Ícone" class="w-32 h-32 rounded-lg object-cover flex-shrink-0">
+                    <div>
+                        <h3 class="text-xl font-bold">BÔNUS #2: Programa Alimentação Consciente & Harmonia Emocional</h3>
+                        <p class="mt-2 text-gray-600">Liberte-se da alimentação emocional. Reprograme sua mente com técnicas neurocientíficas para uma relação saudável e prazerosa com a comida.</p>
+                        <p class="mt-2 font-bold">Valor: <span class="strikethrough">$199</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="oferta" class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-4xl mx-auto">
+                 <h2 class="text-3xl md:text-5xl font-black text-gray-900">ESCOLHA O SEU CAMINHO PARA A LIBERDADE DEFINITIVA</h2>
+                 <p class="text-lg mt-4 text-gray-700">O seu futuro mais saudável e delicioso começa agora. Cada caminho leva à transformação.</p>
+            </div>
+            <div id="pricing-plans" class="flex flex-wrap justify-center items-start gap-8 mt-16">
+                <div class="w-full md:w-1/3 lg:w-1/4 bg-white p-8 rounded-lg shadow-xl border border-gray-200 reveal-on-scroll" data-animate>
+                    <h3 class="text-2xl font-bold text-center text-gray-800">Plano Essencial</h3>
+                    <p class="text-center text-gray-500 mt-2">Para começar a transformação.</p>
+                    <p class="text-5xl font-black text-center my-6 flex justify-center items-start leading-none">
+                        <span class="text-2xl font-semibold mt-1 mr-1">$</span>
+                        <span>19</span>
+                    </p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso ao App</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>500 Receitas Reais testadas e validadas</li>
+                        <li class="flex items-center text-gray-400"><svg class="w-5 h-5 text-red-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span class="strikethrough">Kit Chefe de Cozinha</span></li>
+                        <li class="flex items-center text-gray-400"><svg class="w-5 h-5 text-red-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span class="strikethrough">Alimentação Consciente</span></li>
+                    </ul>
+                    <button class="w-full mt-8 py-3 px-6 bg-gray-800 text-white font-bold rounded-lg cta-button">GARANTIR PLANO ESSENCIAL</button>
+                </div>
+                <div class="w-full md:w-1/3 lg:w-1/4 bg-white p-8 rounded-lg shadow-2xl relative highlight-plan reveal-on-scroll" data-animate>
+                    <div class="absolute top-0 -mt-5 w-full flex justify-center"><span class="bg-yellow-400 text-gray-900 font-bold text-sm px-4 py-1 rounded-full">MAIS POPULAR</span></div>
+                    <h3 class="text-3xl font-bold text-center text-gray-900">Plano VIP</h3>
+                    <p class="text-center text-gray-600 mt-2">O caminho mais rápido.</p>
+                    <p class="text-6xl font-black text-center my-6 text-yellow-500 flex justify-center items-start leading-none">
+                        <span class="text-3xl font-semibold mt-1 mr-1">$</span>
+                        <span>34</span>
+                    </p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-center font-semibold"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Tudo do Plano Essencial</li>
+                        <li class="flex items-center font-semibold"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>BÔNUS #1: Kit Chefe de Cozinha</li>
+                        <li class="flex items-center font-semibold"><svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>BÔNUS #2: Programa Alimentação Consciente</li>
+                    </ul>
+                    <button class="w-full mt-8 py-4 px-6 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-extrabold text-lg rounded-lg cta-button">GARANTIR PLANO VIP</button>
+                </div>
+                 <div class="w-full md:w-1/3 lg:w-1/4 bg-gray-900 text-white p-8 rounded-lg shadow-xl reveal-on-scroll" data-animate>
+                    <h3 class="text-2xl font-bold text-center">Plano Platinum</h3>
+                    <p class="text-center text-gray-400 mt-2">A transformação completa.</p>
+                    <p class="text-5xl font-black text-center my-6 flex justify-center items-start leading-none">
+                        <span class="text-2xl font-semibold mt-1 mr-1">$</span>
+                        <span>44</span>
+                    </p>
+                     <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do Plano VIP</span></li>
+                        <li class="flex items-start font-bold"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Drivers de Saúde & Coaching <p class="text-xs font-normal text-gray-400">Aula exclusiva + sessão individual para criar seu plano alimentar hiper-adaptado.</p></span></li>
+                        <li class="flex items-start font-bold"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Community Health Tips<p class="text-xs font-normal text-gray-400">Acesso a grupo exclusivo para troca de dicas, receitas e motivação com nossos experts.</p></span></li>
+                        <li class="flex items-start font-bold"><svg class="w-5 h-5 text-green-400 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Acesso VITALÍCIO</span></li>
+                    </ul>
+                    <button class="w-full mt-8 py-3 px-6 bg-white text-gray-900 font-bold rounded-lg cta-button">GARANTIR PLATINUM</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 class="text-3xl md:text-5xl font-black">Aqui está tudo o que você leva hoje...</h2>
+            
+            <div class="bg-gray-800 p-8 rounded-lg mt-8 text-left max-w-2xl mx-auto">
+                <ul class="space-y-3">
+                    <li class="flex justify-between items-center"><span>✅ App Guia Saúde Inabalável</span> <span class="font-bold">Valor: $44</span></li>
+                    <li class="flex justify-between items-center"><span>✅ BÔNUS #1: Kit Chefe de Cozinha</span> <span class="font-bold">Valor: $195</span></li>
+                    <li class="flex justify-between items-center"><span>✅ BÔNUS #2: Programa Alimentação Consciente</span> <span class="font-bold">Valor: $199</span></li>
+                </ul>
+                <hr class="my-4 border-gray-600">
+                <div class="text-right text-2xl font-bold">
+                    <span>Valor Total:</span>
+                    <span class="strikethrough text-red-400">$438</span>
+                </div>
+            </div>
+            <p class="text-yellow-400 font-bold text-xl mt-6">Mas apenas hoje, todos esses bônus saem de graça para você!</p>
+            
+            <div class="my-8 bg-red-800/80 border border-red-600 p-4 rounded-lg">
+                <h3 class="text-xl font-bold uppercase tracking-wider">Esta oferta especial termina em:</h3>
+                <div id="countdown" class="text-4xl md:text-6xl font-black tracking-wider mt-2">
+                    <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+                </div>
+                <p class="text-sm mt-2">A oferta e os bônus expiram hoje, <span id="currentDate"></span> às 23:59.</p>
+            </div>
+
+            <button id="final-cta" class="mt-8 py-5 px-12 bg-green-500 hover:bg-green-600 text-white font-extrabold text-lg md:text-xl lg:text-2xl whitespace-nowrap rounded-lg cta-button shadow-2xl">
+                SIM! VOU DESBLOQUEAR MEU CORPO E MENTE!
+            </button>
+            
+            <div class="mt-16">
+                <img src="https://www.pngplay.com/wp-content/uploads/7/60-Day-Guarantee-PNG-Clipart-Background.png" alt="Selo de Garantia de 60 Dias" class="mx-auto mb-6 h-32 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFFFF/000000?text=GARANTIA';">
+                <h3 class="text-2xl font-bold mb-4">Nossa Garantia Blindada de 60 Dias</h3>
+                <p class="max-w-3xl mx-auto text-gray-300">Nós colocamos toda a nossa confiança no Algoritmo do DNA Metabólico®, e queremos que você tenha a mesma segurança. Por isso, oferecemos uma Garantia Blindada de 60 dias. Funciona assim: acesse o programa, use o App, faça as receitas. Se em 60 dias você não sentir uma transformação real na sua energia, no seu humor e no seu corpo - ou se simplesmente não gostar por qualquer motivo - envie um único e-mail para nossa equipe. Nós devolveremos 100% do seu investimento na hora. Sem burocracia, sem perguntas, sem ressentimentos. O risco é inteiramente nosso. A transformação é toda sua.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-16 md:py-24 pastor-bg">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-12">Suas dúvidas, respondidas de forma direta.</h2>
+            <div id="faq-container" class="mx-auto">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold text-lg">Já tentei de tudo. O que torna isto realmente diferente?</h3>
+                        <svg class="w-6 h-6 faq-icon flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="mt-4 text-gray-700">Excelente pergunta. Dietas falham porque são baseadas naquilo que você perde: o prazer, a liberdade, seus pratos favoritos. O Algoritmo do DNA Metabólico® é o oposto. Ele é baseado no que você ganha, porque ele não te dá um plano genérico, ele **decodifica você**. Ele entende seus hormônios e gatilhos emocionais. Não se trata de privação, mas sim de **substituição inteligente e personalizada**. É por isso que funciona: não é um sacrifício, é uma melhoria no seu estilo de vida, feita sob medida para o seu corpo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold text-lg">Minha família (que pode comer de tudo) vai gostar?</h3>
+                        <svg class="w-6 h-6 faq-icon flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="mt-4 text-gray-700">Fomos obcecados por isso. O objetivo não era criar "comida saudável com gosto de remédio", mas sim comida **incrivelmente deliciosa que, por acaso, é saudável**. Usamos técnicas e ingredientes que recriam a textura e o sabor que você ama. Prepare-se para ver seus filhos e parceiro(a) "roubando" sua comida do prato – essa é a nossa maior prova de sucesso.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold text-lg">Tenho diabetes/colesterol alto. Isto é seguro para mim?</h3>
+                        <svg class="w-6 h-6 faq-icon flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="mt-4 text-gray-700">Este guia foi projetado tendo essas condições em mente. Todas as receitas são fundamentalmente zero açúcar e zero glúten, dois dos maiores gatilhos para desequilíbrios metabólicos. O Algoritmo do DNA Metabólico® é uma ferramenta poderosa para complementar suas orientações médicas, não para substituí-las. Ele lhe dá o controle e a certeza para fazer escolhas deliciosas e seguras dentro do plano que seu médico recomendou.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold text-lg">Os ingredientes são caros? Meu orçamento vai disparar?</h3>
+                        <svg class="w-6 h-6 faq-icon flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="mt-4 text-gray-700">Entendemos perfeitamente. É por isso que 90% das nossas receitas usam ingredientes que você encontra facilmente em qualquer grande supermercado. Além disso, com o bônus "Desperdício Zero", você vai otimizar suas compras. Muitos clientes relatam que **economizam dinheiro**, pois deixam de gastar em produtos processados caros e comida por delivery.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold text-lg">Como funciona o acesso? É uma assinatura?</h3>
+                        <svg class="w-6 h-6 faq-icon flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="mt-4 text-gray-700">Não! O pagamento é **único**. Você paga uma vez e tem acesso ao conteúdo do seu plano para sempre (ou vitalício, no caso do Platinum). Sem mensalidades, sem taxas escondidas. Simples e direto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="exit-intent-popup" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+    </div>
+
+    <footer class="bg-gray-900 text-gray-400 text-xs py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">© 2025 Guia Saúde Inabalável. Todos os direitos reservados.</p>
+            <p class="mb-4">
+                <strong>Disclaimer de Resultados:</strong> Os resultados apresentados não são garantidos. Eles podem variar de pessoa para pessoa e dependem exclusivamente do empenho e dedicação individual na aplicação das receitas e métodos ensinados. O nosso objetivo é fornecer as ferramentas e o conhecimento para que você alcance os seus objetivos de saúde.
+            </p>
+            <p>
+                <strong>Isenção de Responsabilidade da Meta:</strong> Este site não faz parte nem é endossado pelo Facebook, Instagram ou qualquer entidade da Meta. Facebook™ e Instagram™ são marcas registradas da Meta, Inc. A responsabilidade por esta oferta é exclusivamente do Guia Saúde Inabalável.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- LÓGICA DE PERSONALIZAÇÃO E DINÂMICA ---
+
+        // Personalização da Saudação e Clima
+        const greetingEl = document.getElementById('greeting');
+        const cityElements = document.querySelectorAll('.dynamic-city');
+        const weatherElements = document.querySelectorAll('.dynamic-weather');
+        
+        const now = new Date();
+        const hour = now.getHours();
+        if (hour < 12) greetingEl.textContent = 'Bom dia';
+        else if (hour < 18) greetingEl.textContent = 'Boa tarde';
+        else greetingEl.textContent = 'Boa noite';
+
+        cityElements.forEach(el => el.textContent = 'Sua Cidade');
+        weatherElements.forEach(el => el.textContent = '');
+
+        fetch('https://ipapi.co/json/')
+            .then(res => res.ok ? res.json() : Promise.reject('IP API Failed'))
+            .then(geoData => {
+                const city = geoData.city || 'a sua cidade';
+                cityElements.forEach(el => el.textContent = city);
+                if (geoData.latitude && geoData.longitude) {
+                    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${geoData.latitude}&longitude=${geoData.longitude}&current_weather=true`);
+                }
+            })
+            .then(res => res && res.ok ? res.json() : Promise.reject('Weather API Failed'))
+            .then(weatherData => {
+                if (weatherData && weatherData.current_weather) {
+                    const temp = Math.round(weatherData.current_weather.temperature);
+                    weatherElements.forEach(el => el.textContent = `${temp}°C`);
+                }
+            })
+            .catch(error => {
+                console.warn("Could not fetch dynamic location/weather. Using defaults.", error);
+                cityElements.forEach(el => el.textContent = 'Sertãozinho');
+                weatherElements.forEach(el => el.textContent = '28°C');
+            });
+
+        // Barra de Progresso de Scroll
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+
+        // Animações de Scroll (Reveal)
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+        // Contador de Urgência e Data
+        const countdownElement = document.getElementById('countdown');
+        const dateElement = document.getElementById('currentDate');
+        if(dateElement) dateElement.textContent = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' });
+
+        if (countdownElement) {
+            function updateCountdown() {
+                const now = new Date();
+                const endOfDay = new Date(now);
+                endOfDay.setHours(23, 59, 59, 999);
+                const diff = endOfDay - now;
+                if (diff <= 0) { countdownElement.innerHTML = "OFERTA ENCERRADA"; return; }
+                const h = Math.floor(diff / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('hours').textContent = h.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = m.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = s.toString().padStart(2, '0');
+            }
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
+
+        // Contador de Visitantes
+        const visitorCounter = document.getElementById('visitor-counter');
+        const visitorCountEl = document.getElementById('visitor-count');
+        setTimeout(() => {
+            visitorCounter.classList.add('visible');
+            let count = Math.floor(Math.random() * (180 - 130 + 1)) + 130;
+            visitorCountEl.textContent = count;
+            setInterval(() => {
+                count += Math.floor(Math.random() * 3) + 1;
+                visitorCountEl.textContent = count;
+            }, (Math.random() * (8 - 4) + 4) * 1000);
+        }, 3000);
+
+        // Scroll para Oferta
+        document.getElementById('final-cta').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('oferta').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Lógica do FAQ Acordeão
+        const faqContainer = document.getElementById('faq-container');
+        if (faqContainer) {
+            faqContainer.addEventListener('click', function(e) {
+                const question = e.target.closest('.faq-question');
+                if (question) {
+                    const item = question.parentElement;
+                    const answer = item.querySelector('.faq-answer');
+                    const icon = question.querySelector('.faq-icon');
+
+                    const isOpening = !answer.style.maxHeight || answer.style.maxHeight === '0px';
+
+                    item.parentElement.querySelectorAll('.faq-item').forEach(otherItem => {
+                        otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+                        otherItem.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                    });
+                    
+                    if (isOpening) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                }
+            });
+        }
+
+        // Popup de Intenção de Saída
+        const popup = document.getElementById('exit-intent-popup');
+        let popupShown = false;
+
+        const showPopup = () => {
+            if (popupShown) return;
+            popup.innerHTML = `
+                <div class="bg-white rounded-lg shadow-2xl max-w-md w-full p-8 text-center popup-content relative">
+                    <button onclick="document.getElementById('exit-intent-popup').classList.add('opacity-0', 'pointer-events-none')" class="absolute top-2 right-4 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+                    <img src="https://www.pngplay.com/wp-content/uploads/5/Attention-PNG-Pic-Background.png" alt="Atenção" class="w-16 h-16 mx-auto mb-4">
+                    <h2 class="text-2xl font-bold text-red-600 mb-4">ESPERE!</h2>
+                    <p class="text-gray-700 mb-6">Você está a um passo de desistir, mas <strong class="font-bold">destravou um bônus exclusivo!</strong> 7 dias de acesso premium ao nosso livro de receitas de café da manhã. Deseja acessar agora, de graça?</p>
+                    <button onclick="document.getElementById('oferta').scrollIntoView({ behavior: 'smooth' }); document.getElementById('exit-intent-popup').classList.add('opacity-0', 'pointer-events-none');" class="w-full mb-3 py-3 px-6 bg-green-500 hover:bg-green-600 text-white font-extrabold text-lg rounded-lg cta-button">
+                        Sim, quero o bônus e a oferta!
+                    </button>
+                    <button onclick="document.getElementById('exit-intent-popup').classList.add('opacity-0', 'pointer-events-none');" class="w-full py-2 px-6 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-md rounded-lg cta-button">
+                        Não, obrigado. Desisto de me sentir bem.
+                    </button>
+                </div>`;
+            popup.classList.remove('opacity-0', 'pointer-events-none');
+            popupShown = true;
+        };
+
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0) {
+                showPopup();
+            }
+        });
+
+        // Gatilho de pop-up por tempo para mobile
+        setTimeout(showPopup, 25000); // 25 segundos
+    });
+    </script>
+</body>
+</html>
